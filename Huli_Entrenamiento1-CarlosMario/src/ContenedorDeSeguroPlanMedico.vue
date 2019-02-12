@@ -1,11 +1,12 @@
 <template>
     <div class="ContenedorDeSeguroPlanMedico">
         <SeguroPlanMedico
+            class="ContenedorDeSeguroPlanMedico__list"
             v-for="(seguroMedico, index) in datosSegurosPlanesMedicos"
             :key="index"
-            class="ContenedorDeSeguroPlanMedico__list"
-            :datosSeguro="seguroMedico"
-            :funcionEliminaSeguro="eliminaSeguro"
+            :datos-seguro="seguroMedico"
+            :funcion-elimina-seguro="eliminaSeguro"
+            @remove-insurance="removeInsurance(index)"
         ></SeguroPlanMedico>
         <v-btn depressed large color="blue" @click="agregaSeguroPlanMedico()">
             {{msjBtn}}
@@ -56,13 +57,17 @@ export default {
         eliminaSeguro(seguro) {
             // -->aqui tuve duda con for(seguro in this.datosSegurosPlanesMedicos)
             for (let i = 0 ; i < this.datosSegurosPlanesMedicos.length ; i++) { 
-                console.log('seguro: ', seguro);
-                console.log('i: ', this.datosSegurosPlanesMedicos[i]);
                 if (seguro === this.datosSegurosPlanesMedicos[i]) {
                     this.datosSegurosPlanesMedicos.splice(i, 1,);
                     break;
                 }
             }
+        },
+        /*
+         * Borra elemento del arreglo en la posicion del index
+         */
+        removeInsurance(index) {
+            this.datosSegurosPlanesMedicos.splice(index,1);
         }
     }
 };

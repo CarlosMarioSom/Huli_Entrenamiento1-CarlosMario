@@ -9,7 +9,7 @@
           <h3>{{ msjPrincipal }}</h3>
         </v-flex>
         <v-flex>
-          <v-btn @click="funcionEliminaSeguro(datosSeguro)" flat small>X</v-btn>
+          <v-btn @click="$emit('remove-insurance')" flat small>X</v-btn>
         </v-flex>
       </v-layout>
     </v-container>
