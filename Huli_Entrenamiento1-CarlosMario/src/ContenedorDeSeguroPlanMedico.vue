@@ -2,72 +2,54 @@
     <div class="ContenedorDeSeguroPlanMedico">
         <SeguroPlanMedico
             class="ContenedorDeSeguroPlanMedico__list"
-            v-for="(seguroMedico, index) in datosSegurosPlanesMedicos"
+            v-for="(seguroMedico, index) in datosSegurosMedicos"
             :key="index"
-            :datos-seguro="seguroMedico"
-            :funcion-elimina-seguro="eliminaSeguro"
+            :datos="seguroMedico"
             @remove-insurance="removeInsurance(index)"
         ></SeguroPlanMedico>
         <v-btn depressed large color="blue" @click="agregaSeguroPlanMedico()">
-            {{msjBtn}}
+            {{translations.buttons.add}}
         </v-btn>
     </div>
 </template>
 
 <script>
 import SeguroPlanMedico from './SeguroPlanMedico.vue';
+import InsuranceEntity from './insurance_entity.js';
 export default {
-    name: 'ContenedorDeSeguroPlanMedico',
+    name: 'SegurosMedicos',
     data() {
         return {
-            msjBtn: '+ AGREGAR OTRO SEGURO O PLAN',
+            translations : {
+                buttons : {
+                    add : "+ AGREGAR OTRO SEGURO O PLAN"
+                },
+            },
             /**
-             * Este array tiene objetos:
+             * Este 
+             * array tiene objetos:
              * {
              *    aseguradora: 'String',
              *    numeroPoliza: 'String'
              * }
              */
-            datosSegurosPlanesMedicos: [],
+            datosSegurosMedicos: [],
         };
     },
     components: {
-        SeguroPlanMedico
+        SeguroPlanMedico,
     },
     methods: {
         agregaSeguroPlanMedico() {
-            this.datosSegurosPlanesMedicos.push({
-            aseguradora: '',
-            numeroPoliza: ''
-            });
+            this.datosSegurosMedicos.push(new InsuranceEntity());
         },
 
-        /**
-         * Esta funcion es pasada por parametro
-         * al componente hijo y borra el elemento 
-         * del arreglo datosSegurosPlanesMedico que
-         * corresponde al componente del que viene 
-         * la accion
-         * Entrada: un objeto de la forma
-         * {
-         *     aseguradora: 'String',
-         *     numeroPoliza: 'String'
-         * }
-        */
-        eliminaSeguro(seguro) {
-            // -->aqui tuve duda con for(seguro in this.datosSegurosPlanesMedicos)
-            for (let i = 0 ; i < this.datosSegurosPlanesMedicos.length ; i++) { 
-                if (seguro === this.datosSegurosPlanesMedicos[i]) {
-                    this.datosSegurosPlanesMedicos.splice(i, 1,);
-                    break;
-                }
-            }
-        },
         /*
          * Borra elemento del arreglo en la posicion del index
+         Input: index del elemento que hay que borrar (el que asigna v-for)
          */
         removeInsurance(index) {
-            this.datosSegurosPlanesMedicos.splice(index,1);
+            this.datosSegurosMedicos.splice(index,1);
         }
     }
 };

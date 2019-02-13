@@ -3,10 +3,10 @@
     <v-container>
       <v-layout>
         <v-flex>
-          <h3>{{ heart }}</h3>
+          <h3>{{ translations.heart }}</h3>
         </v-flex>
         <v-flex>
-          <h3>{{ msjPrincipal }}</h3>
+          <h3>{{ translations.mensajePrincipal }}</h3>
         </v-flex>
         <v-flex>
           <v-btn @click="$emit('remove-insurance')" flat small>X</v-btn>
@@ -17,17 +17,15 @@
       <v-layout>
         <v-flex>
           <v-text-field
-            id="in_Aseguradora"
             placeholder="Aseguradora/Institucion"
-            v-model="datosSeguro.aseguradora"
+            v-model="datos.aseguradora"
           ></v-text-field>
         </v-flex>
         <v-flex>
           <v-text-field
             class="SeguroPlanMedico__inputNumber"
-            id="in_Numero"
             placeholder="Poliza/numero de afiliado"
-            v-model="datosSeguro.numeroPoliza"
+            v-model="datos.numeroPoliza"
           ></v-text-field>
         </v-flex>
       </v-layout>
@@ -39,31 +37,22 @@
 export default {
 	name: 'SeguroPlanMedico',
 	props: {
-		datosSeguro: {
+		datos: {
             type: Object, 
             default() {
-                return {
-                    aseguradora: '',
-                    numeroPoliza: '',
-                }
-                
-            }
-        },
-        funcionEliminaSeguro: {
-            type: Function,
-            default() {
-                () => {alert('Funcion no pasada por parametro')}
+                return new InsuranceEntity()
             }
         },
 	},
 	data() {
 		return {
-			msjPrincipal: 'Seguro o plan medico',
-			heart: '<3',
+        translations : {
+          mensajePrincipal: 'Seguro o plan medico',
+			    heart: '<3',
+        }
+			
 		};
 	},
-	methods: {},
-	components: {}
 };
 </script>
 
